@@ -30,7 +30,7 @@ jobs:
           EMAIL_FROM:              ${{ secrets.EMAIL_FROM }}
           EMAIL_PASS:              ${{ secrets.EMAIL_PASS }}
           EMAIL_TO:                ${{ secrets.EMAIL_TO }}
-          DASHBOARD_GITHUB_TOKEN:  ${{ secrets.DASHBOARD_GITHUB_TOKEN }}
+          GITHUB_TOKEN:            ${{ secrets.DASHBOARD_GITHUB_TOKEN }}
           GITHUB_OWNER:            ${{ secrets.DASH_GITHUB_OWNER }}
           GITHUB_REPO:             ${{ secrets.DASH_GITHUB_REPO }}
         run: node linkedin_optimizer.js
