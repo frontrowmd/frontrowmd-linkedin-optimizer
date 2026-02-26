@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FrontrowMD — LinkedIn Campaign Optimizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:'Libre Baskerville',Georgia,serif; background:linear-gradient(135deg,#020F18 0%,#1D4053 50%,#72A4BF 100%); min-height:100vh; color:#fff; padding:0;}
+  .header{background:rgba(2,15,24,0.6); padding:28px 40px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(114,164,191,0.2);}
+  .logo{font-size:22px; color:#fff; letter-spacing:0.01em;}
+  .logo span{font-weight:bold;}
+  .header-right{text-align:right; font-size:13px; opacity:0.7;}
+  .main{padding:32px 40px; max-width:1400px; margin:0 auto;}
+  h2{font-size:18px; font-weight:bold; color:#72A4BF; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:16px;}
+  h3{font-size:15px; color:#72A4BF; margin-bottom:12px; font-weight:normal; letter-spacing:0.02em;}
+  .kpi-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:32px;}
+  .kpi-card{background:rgba(23,44,69,0.7); border:1px solid rgba(114,164,191,0.2); border-radius:14px; padding:20px 22px;}
+  .kpi-label{font-size:11px; color:#72A4BF; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;}
+  .kpi-value{font-size:28px; font-weight:bold; color:#fff; line-height:1.1;}
+  .kpi-sub{font-size:12px; margin-top:6px; opacity:0.65;}
+  .section{background:rgba(23,44,69,0.5); border:1px solid rgba(114,164,191,0.15); border-radius:14px; padding:24px 28px; margin-bottom:24px;}
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{color:#72A4BF; text-align:left; padding:8px 10px; border-bottom:1px solid rgba(114,164,191,0.2); font-weight:normal; text-transform:uppercase; letter-spacing:0.04em; font-size:11px;}
+  td{padding:9px 10px; border-bottom:1px solid rgba(114,164,191,0.08);}
+  tr:last-child td{border-bottom:none;}
+  .li-row td{background:rgba(114,164,191,0.08);}
+  .intel-item{padding:11px 14px; margin-bottom:8px; border-radius:8px; font-size:13px; line-height:1.5;}
+  .intel-item.alert{background:rgba(239,68,68,0.12); border-left:3px solid #EF4444;}
+  .intel-item.warning{background:rgba(245,158,11,0.12); border-left:3px solid #F59E0B;}
+  .intel-item.opportunity{background:rgba(114,164,191,0.12); border-left:3px solid #72A4BF;}
+  .intel-item.win{background:rgba(34,197,94,0.10); border-left:3px solid #22C55E;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .three-col{display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;}
+  .playbook-item{font-size:13px; padding:8px 0; border-bottom:1px solid rgba(114,164,191,0.1); line-height:1.5;}
+  .playbook-item:last-child{border-bottom:none;}
+  .budget-bar{background:rgba(114,164,191,0.15); border-radius:4px; height:10px; overflow:hidden; margin-top:8px;}
+  .budget-bar-fill{height:100%; border-radius:4px; transition:width 0.3s;}
+  footer{text-align:center; padding:24px; font-size:12px; opacity:0.4;}
+  @media(max-width:768px){.two-col,.three-col{grid-template-columns:1fr;} .main{padding:20px;}}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">☤ frontrow<span>MD</span> — LinkedIn Optimizer</div>
+  <div class="header-right">
+    Agent 4 · 2026-01-27 → 2026-02-25<br/>
+    Generated Feb 26, 2026
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">LinkedIn Spend (30d)</div>
+      <div class="kpi-value">$0.00</div>
+      <div class="kpi-sub">Budget: $35.0K/mo</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Cost Per Demo</div>
+      <div class="kpi-value" style="color:#72A4BF;">$0.00</div>
+      <div class="kpi-sub">Target: $150.00</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Demos (Windsor)</div>
+      <div class="kpi-value">0</div>
+      <div class="kpi-sub">7d: 0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CTR</div>
+      <div class="kpi-value" style="color:#F59E0B;">0.00%</div>
+      <div class="kpi-sub">Benchmark: 0.5%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CPM</div>
+      <div class="kpi-value" style="color:#fff;">$0.00</div>
+      <div class="kpi-sub">CPC: $0.00</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Disqual Rate (30d)</div>
+      <div class="kpi-value" style="color:#22C55E;">0.00%</div>
+      <div class="kpi-sub">0 / 0 demos</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Show Rate (30d)</div>
+      <div class="kpi-value" style="color:#F59E0B;">0.00%</div>
+      <div class="kpi-sub">0 / 0 showed</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Closed Won MRR (30d)</div>
+      <div class="kpi-value">$75.2K</div>
+      <div class="kpi-sub">33 deals</div>
+    </div>
+  </div>
+
+  <!-- INTELLIGENCE ENGINE -->
+  <div class="section">
+    <h2>Intelligence Engine</h2>
+    <div class="intel-item warning">⚠️ Demo show rate at 0.00%. Consider reminder sequences or qualification gate on booking page to improve quality.</div><div class="intel-item opportunity">💡 LinkedIn is under-pacing at 0.00% of monthly budget. If CPD is favorable, consider increasing daily budgets to capture volume.</div>
+  </div>
+
+  <!-- CAMPAIGN BREAKDOWN + RECS -->
+  <div class="two-col">
+    <div class="section">
+      <h2>Campaign Breakdown (30d)</h2>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Campaign</th><th>Spend</th><th>Demos</th><th>CPD</th><th>CTR</th><th>CPM</th><th>CPC</th></tr></thead>
+          <tbody><tr><td colspan="7" style="opacity:0.5; text-align:center; padding:20px;">No campaign data</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Campaign Action Items</h2>
+      <div class="rec-item" style="border-left: 3px solid #9CA3AF; padding: 10px 14px; margin-bottom: 8px; background: rgba(0,0,0,0.2); border-radius: 0 8px 8px 0;">
+      <span style="color:#9CA3AF; font-weight:bold; text-transform:uppercase; font-size:11px;">info</span>
+      <div style="margin-top:4px;">No campaign-level data available for the 30-day window.</div>
+    </div>
+    </div>
+  </div>
+
+  <!-- CROSS-CHANNEL COMPARISON -->
+  <div class="section">
+    <h2>Cross-Channel CPD Comparison (30d)</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead><tr><th>Channel</th><th>Spend</th><th>Demos</th><th>CPD</th><th>CTR</th><th>CPM</th></tr></thead>
+        <tbody><tr class="li-row">
+      <td><strong>LinkedIn</strong> ◀</td>
+      <td>$32.9K</td>
+      <td>0</td>
+      <td style="font-weight:bold; color:#22C55E">-</td>
+      <td>0.85%</td>
+      <td>$13.76</td>
+    </tr><tr >
+      <td><strong>Meta</strong></td>
+      <td>$62.3K</td>
+      <td>0</td>
+      <td style="font-weight:normal; color:#22C55E">-</td>
+      <td>1.43%</td>
+      <td>$66.05</td>
+    </tr><tr >
+      <td><strong>TikTok</strong></td>
+      <td>$12.6K</td>
+      <td>0</td>
+      <td style="font-weight:normal; color:#22C55E">-</td>
+      <td>0.69%</td>
+      <td>$2.03</td>
+    </tr><tr >
+      <td><strong>Google Ads</strong></td>
+      <td>$16.2K</td>
+      <td>0</td>
+      <td style="font-weight:normal; color:#22C55E">-</td>
+      <td>1.01%</td>
+      <td>$18.05</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DISQUAL BREAKDOWN + PIPELINE -->
+  <div class="two-col">
+    <div class="section">
+      <h2>Disqualification Breakdown (30d)</h2>
+      <div style="margin-top:8px;"><div style="opacity:0.5;">No disqualification data.</div></div>
+    </div>
+    <div class="section">
+      <h2>Pipeline Health (30d)</h2>
+      <table>
+        <tbody>
+          <tr><td>Demos Booked</td><td><strong>0</strong></td></tr>
+          <tr><td>Demos Happened</td><td><strong>0</strong></td></tr>
+          <tr><td>No Shows</td><td>0</td></tr>
+          <tr><td>Cancelled</td><td>0</td></tr>
+          <tr><td>Disqualified</td><td style="color:#fff">0 (0.00%)</td></tr>
+          <tr><td>Closed Won</td><td><strong>33</strong></td></tr>
+          <tr><td>MRR (Closed Won)</td><td><strong>$75.2K</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- AUDIENCE PLAYBOOK -->
+  <div class="section">
+    <h2>Audience & Targeting Playbook</h2>
+    <div class="three-col">
+      <div>
+        <h3>Recommended Exclusions</h3>
+        <div class="playbook-item">❌ Company age < 6 months (pre-revenue brands)</div><div class="playbook-item">❌ Job title contains: "Student", "Intern", "Freelance"</div><div class="playbook-item">❌ Company size: 1-5 employees (solo operators)</div>
+      </div>
+      <div>
+        <h3>Layering Strategies to Test</h3>
+        <div class="playbook-item">🎯 Job title (e.g., CEO, CMO, Marketing Director) + Company size (11-200) + Industry (Health & Wellness)</div><div class="playbook-item">🎯 Retargeting: Engaged with LinkedIn page + visited frontrowmd.com (matched audience)</div><div class="playbook-item">🎯 Lookalike: Upload closed-won customer list for LinkedIn Matched Audience expansion</div><div class="playbook-item">🎯 Interest-based: "Marketing & Advertising" + "E-Commerce" + "Health & Wellness"</div><div class="playbook-item">🎯 Account-based: Upload ICP company list for Account Targeting in Campaign Manager</div>
+      </div>
+      <div>
+        <h3>Bid Strategy Recommendations</h3>
+        <div class="playbook-item">⚡ Test: "Maximum Delivery" (auto bid) vs. "Target Cost" at $120-140 CPD</div><div class="playbook-item">⚡ If CPM > $60: Switch from "Reach" objective to "Lead Gen Form" to improve lead quality</div><div class="playbook-item">⚡ For retargeting campaigns: Manual CPC with $8-12 bid cap (smaller audience, higher intent)</div><div class="playbook-item">⚡ For prospecting: Start with auto bid to gather data, then switch to target cost once 30+ conversions</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<footer>FrontrowMD · Agent 4 LinkedIn Optimizer · February 2026</footer>
+</body>
+</html>
