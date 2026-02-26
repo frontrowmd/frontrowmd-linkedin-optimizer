@@ -107,7 +107,7 @@ async function fetchLinkedInData(from, to) {
     date_from: from,
     date_to: to,
     fields: 'campaign_name,spend,clicks,impressions,ctr,cpm,conversions_hubspot_meeting_booked,date',
-    connector: 'linkedin',
+    connectors: 'linkedin',
   });
 }
 
@@ -593,7 +593,7 @@ function buildTextReport({ windows, liData, allChannels, pipelines, intelligence
   return lines.join('\n');
 }
 
-function buildSlackSummary({ liData, pipelines, intelligence, windows }) {
+function buildSlackSummary({ liData, pipelines, intelligence, windows, dashboardUrl }) {
   const li30 = liData.d30;
   const li7 = liData.d7;
   const p30 = pipelines.d30;
@@ -627,6 +627,7 @@ function buildSlackSummary({ liData, pipelines, intelligence, windows }) {
   }
 
   msg += `\n_Run \`node linkedin_optimizer.js\` for full report + dashboard._`;
+  if (dashboardUrl) msg += `\n<${dashboardUrl}|View Full Dashboard →>`;
   return msg;
 }
 
@@ -902,16 +903,19 @@ async function postToSlack(message) {
   } catch (e) { console.error('Slack error:', e.message); }
 }
 
-async function sendEmail(htmlContent, txtContent) {
+async function sendEmail(htmlContent, txtContent, dashboardUrl) {
   if (!EMAIL_FROM || !EMAIL_PASS || !EMAIL_TO) { console.warn('⚠️  Email not configured — skipping.'); return; }
   const transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: EMAIL_FROM, pass: EMAIL_PASS } });
   const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const urlLine = dashboardUrl ? `<p style="font-family:sans-serif;margin:16px 0;"><a href="${dashboardUrl}" style="color:#72A4BF;">View Full Dashboard →</a></p>` : '';
+  const emailHtml = urlLine + htmlContent;
   try {
     await transporter.sendMail({
       from: EMAIL_FROM,
       to: EMAIL_TO,
       subject: `FrontrowMD LinkedIn Optimizer — ${date}`,
-      text: txtContent,
+      html: emailHtml,
+      text: txtContent + (dashboardUrl ? `\n\nView Full Dashboard: ${dashboardUrl}` : ''),
       attachments: [{ filename: `linkedin-optimizer-${date.replace(/\s/g,'-')}.html`, content: htmlContent, contentType: 'text/html' }],
     });
     console.log('✅ Email sent');
@@ -919,8 +923,9 @@ async function sendEmail(htmlContent, txtContent) {
 }
 
 async function deployToGitHub(htmlContent) {
-  if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) { console.warn('⚠️  GitHub not configured — skipping.'); return; }
-  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/linkedin-optimizer/index.html`;
+  if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) { console.warn('⚠️  GitHub not configured — skipping.'); return null; }
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/index.html`;
+  const pagesUrl = `https://${GITHUB_OWNER}.github.io/${GITHUB_REPO}/`;
   try {
     let sha;
     const getRes = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json' } });
@@ -928,8 +933,10 @@ async function deployToGitHub(htmlContent) {
     const body = { message: `LinkedIn optimizer update ${toDateStr(new Date())}`, content: Buffer.from(htmlContent).toString('base64'), ...(sha ? { sha } : {}) };
     const putRes = await fetch(url, { method: 'PUT', headers: { Authorization: `token ${GITHUB_TOKEN}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     if (!putRes.ok) throw new Error(`GitHub PUT ${putRes.status}`);
-    console.log(`✅ Dashboard deployed: https://${GITHUB_OWNER}.github.io/${GITHUB_REPO}/linkedin-optimizer/`);
-  } catch (e) { console.error('GitHub error:', e.message); }
+    console.log(`✅ Dashboard deployed: ${pagesUrl}`);
+    return pagesUrl;
+  } catch (e) { console.error('GitHub error:', e.message); return null; }
+}
 }
 
 // ─── UTILITIES ────────────────────────────────────────────────────────────────
@@ -1034,7 +1041,6 @@ async function main() {
   // ── BUILD OUTPUTS ──
   console.log('📄 Building report outputs...');
   const txtReport = buildTextReport({ windows, liData, allChannels, pipelines, intelligence, campaignRecs, audiencePlaybook, campaigns30 });
-  const slackMsg = buildSlackSummary({ liData, pipelines, intelligence, windows });
   const htmlDashboard = buildDashboard({ liData, allChannels, pipelines, intelligence, campaignRecs, audiencePlaybook, campaigns30, windows });
 
   // ── WRITE FILES ──
@@ -1046,10 +1052,11 @@ async function main() {
   console.log(`💾 Report saved: ${txtPath}`);
   console.log(`💾 Dashboard saved: ${htmlPath}`);
 
-  // ── DELIVER ──
+  // ── DELIVER — deploy first so URL is available for Slack/email ──
+  const dashboardUrl = await deployToGitHub(htmlDashboard);
+  const slackMsg = buildSlackSummary({ liData, pipelines, intelligence, windows, dashboardUrl });
   await postToSlack(slackMsg);
-  await sendEmail(htmlDashboard, txtReport);
-  await deployToGitHub(htmlDashboard);
+  await sendEmail(htmlDashboard, txtReport, dashboardUrl);
 
   console.log('\n✅ LinkedIn Optimizer complete!');
 
